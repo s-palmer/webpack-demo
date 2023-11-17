@@ -1,1 +1,0 @@
-{"version":3,"file":"34.js","mappings":";qHAAA","sources":["webpack://webpack-demo/./src/lazy.js"],"sourcesContent":["export default \"Hello from Lazy!\""],"names":[],"sourceRoot":""}

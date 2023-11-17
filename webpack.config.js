@@ -12,6 +12,21 @@ const commonConfig = merge([
   parts.loadImages({ limit: 15000 }),
   parts.loadJavaScript(),
   parts.generateSourceMaps({ type: "source-map" }),
+  {
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: "babel-loader",
+          },
+          sideEffects: false,
+        },
+      ],
+    },
+  },
+  parts.setFreeVariable("HELLO", "hello from config"),
 ]);
 
 const productionConfig = merge([
@@ -29,6 +44,9 @@ const productionConfig = merge([
           },
         },
       },
+    },
+    stats: {
+      usedExports: true,
     },
   },
   parts.attachRevision(),
