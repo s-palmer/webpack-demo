@@ -6,6 +6,7 @@ const { PurgeCSSPlugin } = require("purgecss-webpack-plugin");
 const path = require("path");
 const webpack = require("webpack");
 const { GitRevisionPlugin } = require("git-revision-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 const ALL_FILES = glob.sync(path.join(__dirname, "src/*.js"));
 const APP_SOURCE = path.join(__dirname, "src");
@@ -128,4 +129,10 @@ exports.attachRevision = () => ({
       banner: new GitRevisionPlugin().version(),
     }),
   ],
+});
+
+exports.minifyJavaScript = () => ({
+  optimization: {
+    minimizer: [new TerserPlugin()],
+  },
 });

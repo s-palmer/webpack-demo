@@ -15,6 +15,7 @@ const commonConfig = merge([
 ]);
 
 const productionConfig = merge([
+  parts.minifyJavaScript(),
   parts.eliminateUnusedCSS(),
   {
     optimization: {
