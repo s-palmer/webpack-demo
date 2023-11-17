@@ -81,3 +81,12 @@ exports.autoprefix = () => ({
     postcssOptions: { plugins: [require("autoprefixer")()] },
   },
 });
+
+exports.stylelint = () => ({
+  loader: "postcss-loader",
+  options: {
+    postcssOptions: {
+      plugins: [require("stylelint")()],
+    },
+  },
+});
