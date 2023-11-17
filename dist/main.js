@@ -1,1 +1,2 @@
-!function(){"use strict";console.log("Hello world from Webpack demo!"),document.body.appendChild(((e="Hello world from the component")=>{const o=document.createElement("div");return o.className="rounded bg-red-100 border max-w-md m-4 p-4",o.innerHTML=e,o})())}();
+!function(){"use strict";console.log("Hello world from Webpack demo!"),document.body.appendChild(function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"Hello world from the component",o=document.createElement("div");return o.className="rounded bg-red-100 border max-w-md m-4 p-4",o.innerHTML=e,o}())}();
+//# sourceMappingURL=main.js.map

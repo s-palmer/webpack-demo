@@ -9,6 +9,8 @@ const commonConfig = merge([
   parts.page({ title: "Webpack Demo" }),
   parts.extractCSS({ loaders: cssLoaders }),
   parts.loadImages({ limit: 15000 }),
+  parts.loadJavaScript(),
+  parts.generateSourceMaps({ type: "source-map" }),
 ]);
 
 const productionConfig = merge([

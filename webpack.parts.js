@@ -6,6 +6,7 @@ const { PurgeCSSPlugin } = require("purgecss-webpack-plugin");
 const path = require("path");
 
 const ALL_FILES = glob.sync(path.join(__dirname, "src/*.js"));
+const APP_SOURCE = path.join(__dirname, "src");
 
 exports.eliminateUnusedCSS = () => ({
   plugins: [
@@ -101,4 +102,14 @@ exports.loadImages = ({ limit } = {}) => ({
       },
     ],
   },
+});
+
+exports.loadJavaScript = () => ({
+  module: {
+    rules: [{ test: /\.js/, include: APP_SOURCE, use: "babel-loader" }],
+  },
+});
+
+exports.generateSourceMaps = ({ type }) => ({
+  devtool: type,
 });
