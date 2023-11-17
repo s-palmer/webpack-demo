@@ -1,26 +1,33 @@
-const { mode } = require('webpack-nano/argv');
-const {
-  MiniHtmlWebpackPlugin,
-} = require('mini-html-webpack-plugin');
-const {
-  WebpackPluginServe,
-} = require('webpack-plugin-serve');
+const { mode } = require("webpack-nano/argv");
+const { merge } = require("webpack-merge");
+const parts = require("./webpack.parts");
 
-module.exports = {
-  watch: mode === "development",
-  entry: ['./src', 'webpack-plugin-serve/client'],
-  mode,
-  plugins : [
-    new MiniHtmlWebpackPlugin({
-      context : {
-        title : 'Webpack demo',
-      },
-    }),
-    new WebpackPluginServe({
-      port: parseInt(process.env.PORT, 10) || 8080,
-      static: './dist',
-      liveReload: true,
-      waitForBuild: true
-    }),
-  ],
-}
+const cssLoaders = [parts.tailwind()];
+
+const commonConfig = merge([
+  { entry: ["./src"] },
+  parts.page({ title: "Webpack Demo" }),
+  parts.extractCSS({ loaders: cssLoaders }),
+]);
+
+const productionConfig = merge([
+  parts.eliminateUnusedCSS(),
+]);
+
+const developmentConfig = merge([
+  { entry: ["webpack-plugin-serve/client"] },
+  parts.devServer(),
+]);
+
+const getConfig = (mode) => {
+  switch (mode) {
+    case "production":
+      return merge(commonConfig, productionConfig, { mode });
+    case "development":
+      return merge(commonConfig, developmentConfig, { mode });
+    default:
+      throw new Error(`Trying to use an unknown mode, ${mode}`);
+  }
+};
+
+module.exports = getConfig(mode);
