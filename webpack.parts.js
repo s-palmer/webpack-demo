@@ -146,9 +146,20 @@ exports.minifyCSS = ({ options }) => ({
 
 exports.setFreeVariable = (key, value) => {
   const env = {};
-  env[key] = JSON.stringify(value)
+  env[key] = JSON.stringify(value);
 
   return {
     plugins: [new webpack.DefinePlugin(env)],
   };
-}
+};
+
+exports.page = ({ title, url = "", chunks }) => ({
+  plugins: [
+    new MiniHtmlWebpackPlugin({
+      publicPath: "/",
+      chunks,
+      filename: `${url && url + "/"}index.html`,
+      context: { title },
+    }),
+  ],
+});

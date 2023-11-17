@@ -1,0 +1,1 @@
+!function(){const e=document.createElement("div");e.innerHTML="hello multi",document.body.appendChild(e)}();
