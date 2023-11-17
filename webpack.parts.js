@@ -74,3 +74,10 @@ exports.tailwind = () => ({
     },
   },
 });
+
+exports.autoprefix = () => ({
+  loader: "postcss-loader",
+  options: {
+    postcssOptions: { plugins: [require("autoprefixer")()] },
+  },
+});
