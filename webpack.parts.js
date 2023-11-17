@@ -1,3 +1,4 @@
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const { WebpackPluginServe } = require("webpack-plugin-serve");
 const { MiniHtmlWebpackPlugin } = require("mini-html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -133,6 +134,12 @@ exports.attachRevision = () => ({
 
 exports.minifyJavaScript = () => ({
   optimization: {
-    minimizer: [new TerserPlugin()],
+    minimizer: [new TerserPlugin({ terserOptions: { sourceMap: true } })],
+  },
+});
+
+exports.minifyCSS = ({ options }) => ({
+  optimization: {
+    minimizer: [new CssMinimizerPlugin({ minimizerOptions: options })],
   },
 });
