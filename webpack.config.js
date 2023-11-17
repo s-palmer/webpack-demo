@@ -42,15 +42,8 @@ const productionConfig = merge([
   parts.eliminateUnusedCSS(),
   {
     optimization: {
-      splitChunks: {
-        cacheGroups: {
-          commons: {
-            test: /[\\/]node_modules[\\/]/,
-            name: "vendor",
-            chunks: "initial",
-          },
-        },
-      },
+      splitChunks: { chunks: "all" },
+      runtimeChunk: { name: "runtime" },
     },
     stats: {
       usedExports: true,
