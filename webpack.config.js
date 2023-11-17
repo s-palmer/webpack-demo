@@ -5,6 +5,7 @@ const parts = require("./webpack.parts");
 const cssLoaders = [parts.autoprefix(), parts.tailwind()];
 
 const commonConfig = merge([
+  parts.clean(),
   { entry: ["./src"] },
   parts.page({ title: "Webpack Demo" }),
   parts.extractCSS({ loaders: cssLoaders }),
@@ -15,6 +16,20 @@ const commonConfig = merge([
 
 const productionConfig = merge([
   parts.eliminateUnusedCSS(),
+  {
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          commons: {
+            test: /[\\/]node_modules[\\/]/,
+            name: "vendor",
+            chunks: "initial",
+          },
+        },
+      },
+    },
+  },
+  parts.attachRevision(),
 ]);
 
 const developmentConfig = merge([
